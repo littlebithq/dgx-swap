@@ -23,7 +23,7 @@ interface SwapContractInterface extends ethers.utils.Interface {
   functions: {
     "CGT_ADDRESS()": FunctionFragment;
     "DGX_ADDRESS()": FunctionFragment;
-    "collect()": FunctionFragment;
+    "DGX_AmountBurnt()": FunctionFragment;
     "swap(uint256)": FunctionFragment;
   };
 
@@ -35,7 +35,10 @@ interface SwapContractInterface extends ethers.utils.Interface {
     functionFragment: "DGX_ADDRESS",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "collect", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "DGX_AmountBurnt",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "swap", values: [BigNumberish]): string;
 
   decodeFunctionResult(
@@ -46,24 +49,21 @@ interface SwapContractInterface extends ethers.utils.Interface {
     functionFragment: "DGX_ADDRESS",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "collect", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "DGX_AmountBurnt",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "swap", data: BytesLike): Result;
 
   events: {
-    "collectedCGT(uint256,address)": EventFragment;
     "swappedTokens(uint256,address)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "collectedCGT"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "swappedTokens"): EventFragment;
 }
 
-export type collectedCGTEvent = TypedEvent<
-  [BigNumber, string] & { cgtAmount: BigNumber; account: string }
->;
-
 export type swappedTokensEvent = TypedEvent<
-  [BigNumber, string] & { dgxAmount: BigNumber; account: string }
+  [BigNumber, string] & { DGX_Amount: BigNumber; account: string }
 >;
 
 export class SwapContract extends BaseContract {
@@ -114,9 +114,7 @@ export class SwapContract extends BaseContract {
 
     DGX_ADDRESS(overrides?: CallOverrides): Promise<[string]>;
 
-    collect(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    DGX_AmountBurnt(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     swap(
       _amount: BigNumberish,
@@ -128,9 +126,7 @@ export class SwapContract extends BaseContract {
 
   DGX_ADDRESS(overrides?: CallOverrides): Promise<string>;
 
-  collect(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  DGX_AmountBurnt(overrides?: CallOverrides): Promise<BigNumber>;
 
   swap(
     _amount: BigNumberish,
@@ -142,42 +138,26 @@ export class SwapContract extends BaseContract {
 
     DGX_ADDRESS(overrides?: CallOverrides): Promise<string>;
 
-    collect(overrides?: CallOverrides): Promise<void>;
+    DGX_AmountBurnt(overrides?: CallOverrides): Promise<BigNumber>;
 
     swap(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
-    "collectedCGT(uint256,address)"(
-      cgtAmount?: null,
-      account?: null
-    ): TypedEventFilter<
-      [BigNumber, string],
-      { cgtAmount: BigNumber; account: string }
-    >;
-
-    collectedCGT(
-      cgtAmount?: null,
-      account?: null
-    ): TypedEventFilter<
-      [BigNumber, string],
-      { cgtAmount: BigNumber; account: string }
-    >;
-
     "swappedTokens(uint256,address)"(
-      dgxAmount?: null,
+      DGX_Amount?: null,
       account?: null
     ): TypedEventFilter<
       [BigNumber, string],
-      { dgxAmount: BigNumber; account: string }
+      { DGX_Amount: BigNumber; account: string }
     >;
 
     swappedTokens(
-      dgxAmount?: null,
+      DGX_Amount?: null,
       account?: null
     ): TypedEventFilter<
       [BigNumber, string],
-      { dgxAmount: BigNumber; account: string }
+      { DGX_Amount: BigNumber; account: string }
     >;
   };
 
@@ -186,9 +166,7 @@ export class SwapContract extends BaseContract {
 
     DGX_ADDRESS(overrides?: CallOverrides): Promise<BigNumber>;
 
-    collect(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    DGX_AmountBurnt(overrides?: CallOverrides): Promise<BigNumber>;
 
     swap(
       _amount: BigNumberish,
@@ -201,9 +179,7 @@ export class SwapContract extends BaseContract {
 
     DGX_ADDRESS(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    collect(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    DGX_AmountBurnt(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     swap(
       _amount: BigNumberish,

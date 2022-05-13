@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { ethers, waffle, network } from "hardhat";
 import { Wallet, utils } from "ethers";
-import { SwapContract, ERC20, CacheGold, LockedGoldOracle, Token } from "../src/types/index";
+import { SwapContract, CacheGold, LockedGoldOracle, Token } from "../src/types/index";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 
 describe("DGX Swap Contract", function () {
@@ -65,26 +65,23 @@ describe("DGX Swap Contract", function () {
     await cacheGold.connect(cgtHolder).transfer(swapContract.address, 1000 * 10**await cacheGold.decimals());
   });
 
-  it("Should allow user to swap DGX and receive CGT allowance", async function () {
+  it("Should allow user to swap DGX and receive equal amount of CGT", async function () {
     const amount = 100;
     const initialDGXBalance = await dgxToken.balanceOf(dgxHolder.address);
-    await dgxToken.connect(dgxHolder).approve(swapContract.address, amount * 10**await dgxToken.decimals());
-    await swapContract.connect(dgxHolder).swap(amount * 10**await dgxToken.decimals());
-    expect((await cacheGold.connect(dgxHolder).allowance(swapContract.address, dgxHolder.address)).toNumber() / 10**await cacheGold.decimals()).to.be.equal(amount);
-    const finalDGXBalance = await dgxToken.balanceOf(dgxHolder.address);
-    expect((initialDGXBalance.toNumber() - finalDGXBalance.toNumber()) / 10**await dgxToken.decimals()).to.be.equal(amount);
-  });
-
-  it("Should allow user to collect CGT after swapping", async function () {
-    const amount = 100;
     const initialCGTBalance = await cacheGold.balanceOfNoFees(dgxHolder.address);
     await dgxToken.connect(dgxHolder).approve(swapContract.address, amount * 10**await dgxToken.decimals());
     await swapContract.connect(dgxHolder).swap(amount * 10**await dgxToken.decimals());
-    await swapContract.connect(dgxHolder).collect();
+    const finalDGXBalance = await dgxToken.balanceOf(dgxHolder.address);
     const finalCGTBalance = await cacheGold.balanceOfNoFees(dgxHolder.address);
-    expect((await cacheGold.allowance(swapContract.address, dgxHolder.address)).toNumber() / 10**await cacheGold.decimals()).to.be.equal(0);
+    expect((initialDGXBalance.toNumber() - finalDGXBalance.toNumber()) / 10**await dgxToken.decimals()).to.be.equal(amount);
     expect((finalCGTBalance.toNumber() - initialCGTBalance.toNumber()) / 10**await cacheGold.decimals()).to.be.equal(amount);
     console.log("CGT fees: ", amount - (await cacheGold.balanceOf(dgxHolder.address)).toNumber() / 10**await cacheGold.decimals());
+  });
+
+  it("Should not allow user to swap DGX without approving", async function () {
+    expect(
+      swapContract.connect(dgxHolder).swap(100 * 10**await dgxToken.decimals())
+    ).to.be.revertedWith('Amount exceeds DGX allowance');
   });
 
   it("Should not allow user to swap DGX without sufficient balance", async function () {
@@ -96,12 +93,6 @@ describe("DGX Swap Contract", function () {
   it("Should not allow user to swap if contract has insufficient CGT balance", async function () {
     expect(
       swapContract.connect(dgxHolder).swap(1000 * 10**await dgxToken.decimals())
-    ).to.be.revertedWith('Insufficient CGT balance');
-  });
-
-  it("Should not allow user to collect CGT without swapping DGX", async function () {
-    expect(
-      swapContract.collect()
-    ).to.be.revertedWith('Insufficient CGT Allowance');
+    ).to.be.revertedWith('Insufficient CGT in contract');
   });
 });
