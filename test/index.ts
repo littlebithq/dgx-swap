@@ -69,12 +69,18 @@ describe("DGX Swap Contract", function () {
     const amount = 100;
     const initialDGXBalance = await dgxToken.balanceOf(dgxHolder.address);
     const initialCGTBalance = await cacheGold.balanceOfNoFees(dgxHolder.address);
+    const initialAmountBurnt = await swapContract.DGX_AmountBurnt();
+
     await dgxToken.connect(dgxHolder).approve(swapContract.address, amount * 10**await dgxToken.decimals());
     await swapContract.connect(dgxHolder).swap(amount * 10**await dgxToken.decimals());
+
     const finalDGXBalance = await dgxToken.balanceOf(dgxHolder.address);
     const finalCGTBalance = await cacheGold.balanceOfNoFees(dgxHolder.address);
+    const finalAmountBurnt = await swapContract.DGX_AmountBurnt();
+
     expect((initialDGXBalance.toNumber() - finalDGXBalance.toNumber()) / 10**await dgxToken.decimals()).to.be.equal(amount);
     expect((finalCGTBalance.toNumber() - initialCGTBalance.toNumber()) / 10**await cacheGold.decimals()).to.be.equal(amount);
+    expect((finalAmountBurnt.toNumber() - initialAmountBurnt.toNumber() )/ 10**await dgxToken.decimals()).to.be.equal(amount);
     console.log("CGT fees: ", amount - (await cacheGold.balanceOf(dgxHolder.address)).toNumber() / 10**await cacheGold.decimals());
   });
 
