@@ -3,8 +3,10 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-import { ethers } from "hardhat";
+import { config, ethers } from "hardhat";
+import { Contract } from 'ethers';
 import * as hre from "hardhat";
+import fs from 'fs';
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -17,11 +19,12 @@ async function main() {
   // We get the contract to deploy
   const SwapContract = await ethers.getContractFactory("SwapContract");
   const swapContract = await SwapContract.deploy();
-
   await swapContract.deployed();
-
   console.log("SwapContract deployed to:", swapContract.address);
-  return swapContract.address;
+  
+  return {
+    'SwapContract': swapContract
+  }
 };
 
 async function verify(contractAddress:string, ...args:Array<any>) {
@@ -34,12 +37,21 @@ async function verify(contractAddress:string, ...args:Array<any>) {
   });
 };
 
+function saveFrontendFiles(contract: Contract, contractName: string) {
+  console.log('Adding to frontend', contractName)
+  fs.appendFileSync(
+    `${config.paths.artifacts}/contracts/contractAddress.ts`,
+    `export const ${contractName} = '${contract.address}'\n`
+  );
+};
+
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 main()
-.then(async(swapContractAddress) => {
-  // await verify(swapContractAddress);
-  process.exit(0)
+.then(async(deployedData) => {
+  // await verify(deployedData.SwapContract.address);
+  saveFrontendFiles(deployedData.SwapContract, 'SwapContract');
+  process.exit(0);
 })
 .catch((error) => {
   console.error(error);
