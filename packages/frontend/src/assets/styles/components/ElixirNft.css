@@ -1,0 +1,47 @@
+.ElixirNftContainer {
+  background: #675B5B;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.35);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.ElixirNftActions {
+  display: flex;
+  justify-content: center;
+  padding: .5rem 0;
+  width: 100%;
+}
+
+.ElixirNftImage {
+  cursor: pointer;
+  width: 225px;
+}
+
+@media only screen and (max-width: 1366px) {
+}
+
+@media only screen and (max-width: 1180px) {
+}
+
+@media only screen and (max-width: 1024px) {
+  .ElixirNftImage {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+}
+
+@media only screen and (max-width: 640px) {
+  .ElixirNftImage {
+    width: 180px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+}
+
+@media only screen and (max-width: 320px) {
+}

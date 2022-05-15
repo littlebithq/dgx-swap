@@ -1,0 +1,107 @@
+.SplitContainer {
+  align-items: flex-start;
+  background: #675B5B;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.35);
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  max-width: 500px;
+  padding: 2rem;
+  width: 100%;
+}
+
+.SplitLabel {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.SplitBalance {
+  font-size: .8rem;
+  font-weight: 600;
+  padding: .5rem 0;
+  text-align: end;
+  width: 100%;
+}
+
+.SplitFormContainer {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2%;
+  max-width: 450px;
+  width: 100%;
+}
+
+.SplitFormControl {
+  background: rgba(251, 239, 223, 0.5);
+  border-radius: 12px;
+}
+
+.SplitChymeControl {
+  width: 40%;
+}
+
+.SplitStrikeControl {
+  width: 58%;
+}
+
+.SplitAmountControl {
+  width: 100%;
+}
+
+.SplitMaxAmountButton {
+  height: 2rem !important;
+}
+
+.SplitFormControlErrorMessage {
+  color: #d32f2f;
+  font-size: .75rem;
+}
+
+.SplitActions {
+  display: flex;
+  justify-content: center;
+  padding: .5rem 0;
+  width: 100%;
+}
+
+.SplitButton {
+  font-size: 1.25rem !important;
+  height: 50px !important;
+  width: 250px !important;
+}
+
+@media only screen and (max-width: 1366px) {
+}
+
+@media only screen and (max-width: 1180px) {
+}
+
+@media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 960px) {
+}
+
+@media only screen and (max-width: 640px) {
+}
+
+@media only screen and (max-width: 480px) {
+  .SplitContainer {
+    padding: 1rem;
+  }
+  .SplitFormContainer {
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .SplitFormControl {
+    width: 100%;
+  }
+  .SplitBalance {
+    padding: 0;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+}

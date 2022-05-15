@@ -1,0 +1,97 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IAcademy",
+  "sourceName": "contracts/interfaces/IAcademy.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "DAOAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "alchemistImpl",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_chyme",
+          "type": "address"
+        }
+      ],
+      "name": "chymeList",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "oracleAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "infoUri",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "fees",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "reward",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timeToMaturity",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "DAOApproved",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct IChyme.Chyme",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "elixirImpl",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "steadyDAOToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "steadyImpl",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

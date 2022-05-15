@@ -1,0 +1,72 @@
+.AccountContainer {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.HoldingTokenContainer {
+  align-items: center;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  height: 40px;
+  padding: 8px 10px;
+}
+
+.HoldingTokenText {
+  color: #533535;
+  font-weight: 700;
+}
+
+.AccountInfoContainer {
+  align-items: center;
+  background: #675B5B;
+  border-radius: 10px;
+  display: flex;
+  gap: .5rem;
+  height: 40px;
+  justify-content: center;
+}
+
+.AccountInfoBalance {
+  padding-left: 10px;
+}
+
+.AccountInfoAddress {
+  align-items: center;
+  background: #E6CCA9;
+  border-radius: 10px;
+  display: flex;
+  height: 100%;
+  padding: 0 10px;
+}
+
+@media only screen and (max-width: 1366px) {
+}
+
+@media only screen and (max-width: 1180px) {
+}
+
+@media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 960px) {
+  .AccountContainer {
+    gap: .85rem;
+  }
+  .AccountInfoBalance,
+  .AccountInfoAddress {
+    font-size: .95rem;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+}
+
+@media only screen and (max-width: 480px) {
+}
+
+@media only screen and (max-width: 320px) {
+}

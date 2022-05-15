@@ -1,0 +1,79 @@
+.MergeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.MergeTitleContainer {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.MergeTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.MergeActions {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.ElixirNftsContainer {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.NoElixirNftMessage {
+  color: #a99b9b;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.ElixirNftsSpinnerContainer {
+  align-items: center;
+  display: flex;
+  height: 200px;
+  width: 100%;
+}
+
+@media only screen and (max-width: 1366px) {
+}
+
+@media only screen and (max-width: 1180px) {
+}
+
+@media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 960px) {
+}
+
+@media only screen and (max-width: 640px) {
+}
+
+@media only screen and (max-width: 480px) {
+  .MergeTitleContainer,
+  .MergeActions {
+    justify-content: center;
+  }
+  .ElixirNftsContainer {
+    align-items: center;
+    flex-direction: column;
+  }
+  .ElixirNftsSpinnerContainer {
+    justify-content: center;
+  }
+  .NoElixirNftMessage {
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+}
