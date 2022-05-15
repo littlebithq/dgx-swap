@@ -1,9 +1,0 @@
-{
-  "NETWORK": {
-    "CHAIN_ID": 4,
-    "NAME": "Rinkeby"
-  },
-  "ETHERSCAN_KEY": "1e1e424bf7a44c088f856be8b71b2364",
-  "STEADY_SUBGRAPH_URL": "https://api.thegraph.com/subgraphs/name/vitamind3inj/steady-rin",
-  "OPENSEA_API_URL": "https://testnets-api.opensea.io/api/v1"
-}
