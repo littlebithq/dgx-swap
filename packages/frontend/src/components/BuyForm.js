@@ -23,21 +23,19 @@ class BuyForm extends Component {
         }}
       >
         <div>
-          <label className="float-left">
-            <b>Input</b>
-          </label>
+       
           <span className="float-right text-muted">
             Balance:
-            {window.web3.utils.fromWei(this.props.etherBalance, "Ether")}
+            {window.web3.utils.fromWei(this.props.DGXBalance, "Ether")}
           </span>
         </div>
         <div className="input-group mb-4">
           <input
             onChange={(event) => {
               //console.log('changing')
-              const etherAmount = this.input.value.toString();
+              const DGXAmount = this.input.value.toString();
               this.setState({
-                output: etherAmount * 100,
+                output: DGXAmount ,
               });
             }}
             ref={(input) => {
@@ -56,12 +54,10 @@ class BuyForm extends Component {
           </div>
         </div>
         <div>
-          <label className="float-left">
-            <b>Output</b>
-          </label>
+        
           <span className="float-right text-muted">
             Balance:{" "}
-            {window.web3.utils.fromWei(this.props.tokenBalance, "Ether")}
+            {window.web3.utils.fromWei(this.props.CGTBalance, "Ether")}
           </span>
         </div>
         <div className="input-group mb-2">
@@ -80,11 +76,10 @@ class BuyForm extends Component {
           </div>
         </div>
         <div className="mb-5">
-          <span className="float-left text-muted">Exchange Rate</span>
-          <span className="float-right text-muted">1 ETH = 100 DApp</span>
+          
         </div>
         <button type="submit" className="btn btn-primary btn-block btn-lg">
-          SWAP!
+          SWAP
         </button>
       </form>
     );

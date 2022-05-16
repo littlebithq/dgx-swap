@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "yarn workspace dgx-swap-frontend dev",
+    "deploy":"yarn workspace dgx-swap-contract deploy",
     "build": "yarn workspace dgx-swap-frontend build",
     "start": "yarn workspace dgx-swap-frontend start",
     "chain": "yarn workspace dgx-swap-contract chain",

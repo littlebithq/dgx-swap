@@ -8,6 +8,9 @@ import { Contract } from 'ethers';
 import * as hre from "hardhat";
 import fs from 'fs';
 
+
+
+
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
@@ -21,9 +24,10 @@ async function main() {
   const swapContract = await SwapContract.deploy();
   await swapContract.deployed();
   console.log("SwapContract deployed to:", swapContract.address);
-  
+
   return {
-    'SwapContract': swapContract
+    'SwapContract': swapContract,
+
   }
 };
 
@@ -40,7 +44,7 @@ async function verify(contractAddress:string, ...args:Array<any>) {
 function saveFrontendFiles(contract: Contract, contractName: string) {
   console.log('Adding to frontend', contractName)
   fs.appendFileSync(
-    `${config.paths.artifacts}/contracts/contractAddress.ts`,
+    `../frontend/artifacts/contractAddress.ts`,
     `export const ${contractName} = '${contract.address}'\n`
   );
 };

@@ -29,6 +29,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
+  defaultNetwork: "hardhat",
   solidity:  {
     compilers: [
       {
@@ -48,7 +49,7 @@ const config: HardhatUserConfig = {
   networks: {
     localhost: {
       url: "http://127.0.0.1:8545",
-      accounts
+      accounts:process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
     hardhat: {
       forking: {
@@ -86,6 +87,10 @@ const config: HardhatUserConfig = {
         url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`, 
         accounts
     },
+     matic: {
+      url: "https://rpc-mumbai.maticvigil.com",
+      accounts
+    }
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,

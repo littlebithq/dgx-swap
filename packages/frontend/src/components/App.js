@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Web3 from "web3";
-import Token from "../abis/Token.json";
-import CacheToken from "../abis/CacheGold.json";
-import DgiSwap from "../abis/SwapContract.json";
+import DGXToken from "../abis/Token.json";
+import CGTToken from "../abis/CacheGold.json";
+import DgxSwap from "../abis/SwapContract.json";
 import Navbar from "./Navbar";
 import Main from "./Main";
 import "./App.css";
@@ -18,42 +18,27 @@ class App extends Component {
 
     const accounts = await web3.eth.getAccounts();
     this.setState({ account: accounts[0] });
-
-    const etherBalance = await web3.eth.getBalance(this.state.account);
-    this.setState({ etherBalance });
+    const DGXContract = new web3.eth.Contract(DGXToken.abi,"0xf5238462e7235c7b62811567e63dd17d12c2eaa0");
+    this.setState({ DGXContract });
+    const DGXBalance = await DGXContract.methods.balanceOf(this.state.account).call();
+    this.setState({ DGXBalance });
 
     // Load Token
-    // const networkId = await web3.eth.net.getId();
-    // console.log(CacheToken);
-    // // const tokenData = Token.networks[networkId];
-    // const token = new web3.eth.Contract(CacheToken.abi, CacheToken.address);
-    // this.setState({ token });
-    // let tokenBalance = await token.methods.balanceOf(this.state.account).call();
-    // console.log(await token.methods.totalSupply().call());
-    // this.setState({ tokenBalance: tokenBalance.toString() });
-    // if (tokenData) {
-    //   const token = new web3.eth.Contract(Token.abi, tokenData.address);
-    //   this.setState({ token });
-    //   let tokenBalance = await token.methods
-    //     .balanceOf(this.state.account)
-    //     .call();
-    //   this.setState({ tokenBalance: tokenBalance.toString() });
-    // } else {
-    //   window.alert("Token contract not deployed to detected network.");
-    // }
+    const CGTContract = new web3.eth.Contract(CGTToken.abi,"0xf5238462e7235c7b62811567e63dd17d12c2eaa0");
+    this.setState({ CGTContract });
 
-    //Load EtherSwap
-    // const etherSwapData = EtherSwap.networks[networkId];
-    // if (etherSwapData) {
-    //   const etherSwap = new web3.eth.Contract(
-    //     EtherSwap.abi,
-    //     etherSwapData.address
-    //   );
-    //   this.setState({ etherSwap });
-    // } else {
-    //   window.alert("EtherSwap contract not deployed to detected network.");
-    // }
+    let CGTBalance = await CGTContract.methods.balanceOf(this.state.account).call();
+    console.log(await CGTContract.methods.totalSupply().call());
+   this.setState({ CGTBalance: CGTBalance.toString() });
 
+
+     const DGXSwapContract = new web3.eth.Contract(
+        DgxSwap.abi,
+        "0x40a42Baf86Fc821f972Ad2aC878729063CeEF403"
+      );
+      console.log(DgxSwap)
+      this.setState({ DGXSwapContract });
+     
     this.setState({ loading: false });
   }
 
@@ -71,13 +56,11 @@ class App extends Component {
   }
 
   buyTokens = (etherAmount) => {
+    console.log(this.state.DGXSwapContract)
     this.setState({ loading: true });
-    this.state.etherSwap.methods
-      .buyTokens()
-      .send({ value: etherAmount, from: this.state.account })
-      .on("transactionHash", (hash) => {
-        this.setState({ loading: false });
-      });
+    this.state.DGXSwapContract.methods
+      .swap(etherAmount).call();
+      
   };
 
   sellTokens = (tokenAmount) => {
@@ -99,10 +82,11 @@ class App extends Component {
     super(props);
     this.state = {
       account: "",
-      token: {},
-      etherSwap: {},
-      etherBalance: "0",
-      tokenBalance: "0",
+      DGXContract: {},
+      CGTContract: {},
+      DGXSwapContract: {},
+      DGXBalance: "0",
+      CGTBalance: "0",
       loading: true,
     };
   }
@@ -119,8 +103,8 @@ class App extends Component {
     } else {
       content = (
         <Main
-          etherBalance={this.state.etherBalance}
-          tokenBalance={this.state.tokenBalance}
+          DGXBalance={this.state.DGXBalance}
+          CGTBalance={this.state.CGTBalance}
           buyTokens={this.buyTokens}
           sellTokens={this.sellTokens}
         />

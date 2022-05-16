@@ -14,14 +14,14 @@ class Main extends Component {
     // let content
     // if(this.state.currentForm === 'buy') {
     //   content = <BuyForm
-    //     etherBalance={this.props.etherBalance}
-    //     tokenBalance={this.props.tokenBalance}
+    //     DGXBalance={this.props.DGXBalance}
+    //     CGTBalance={this.props.CGTBalance}
     //     buyTokens={this.props.buyTokens}
     //   />
     // } else {
     //   content = <SellForm
-    //     etherBalance={this.props.etherBalance}
-    //     tokenBalance={this.props.tokenBalance}
+    //     DGXBalance={this.props.DGXBalance}
+    //     CGTBalance={this.props.CGTBalance}
     //     sellTokens={this.props.sellTokens}
     //   />
     // }
@@ -49,8 +49,8 @@ class Main extends Component {
         <div className="card mb-4">
           <div className="card-body">
             <BuyForm
-              etherBalance={this.props.etherBalance}
-              tokenBalance={this.props.tokenBalance}
+              DGXBalance={this.props.DGXBalance}
+              CGTBalance={this.props.CGTBalance}
               buyTokens={this.props.buyTokens}
             />
           </div>

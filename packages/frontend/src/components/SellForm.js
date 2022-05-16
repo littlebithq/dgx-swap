@@ -23,7 +23,7 @@
 //       <div>
 //       <label className="float-left"><b>Input</b></label>
 //           <span className="float-right text-muted">
-//             Balance: {window.web3.utils.fromWei(this.props.tokenBalance, 'Ether')}
+//             Balance: {window.web3.utils.fromWei(this.props.CGTBalance, 'Ether')}
 //           </span>
 //         </div>
 //         <div className="input-group mb-4">
@@ -49,7 +49,7 @@
 //       <div>
 //         <label className="float-left"><b>Output</b></label>
 //         <span className="float-right text-muted">
-//           Balance: {window.web3.utils.fromWei(this.props.etherBalance, 'Ether')}
+//           Balance: {window.web3.utils.fromWei(this.props.DGXBalance, 'Ether')}
 //         </span>
 //       </div>
 //       <div className="input-group mb-2">

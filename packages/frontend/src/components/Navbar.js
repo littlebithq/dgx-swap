@@ -16,7 +16,7 @@ class Navbar extends Component {
                         target="_blank"
 rel="noopener noreferrer"
           >
-            EtherSwap
+            DGXSwap
           </a>
 
           <ul className="navbar-nav px-3">
