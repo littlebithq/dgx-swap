@@ -1,0 +1,24 @@
+{
+  "name": "dgx-swap",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "yarn workspace dgx-swap-frontend dev",
+    "build": "yarn workspace dgx-swap-frontend build",
+    "start": "yarn workspace dgx-swap-frontend start",
+    "chain": "yarn workspace dgx-swap-contract chain",
+    "compile": "yarn workspace dgx-swap-contract compile",
+    "transfer": "yarn workspace dgx-swap-contract transfer",
+    "start-node": "yarn workspace dgx-swap-contract start"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/hardhat",
+      "**/hardhat/**"
+    ]
+  },
+  "devDependencies": {}
+}
