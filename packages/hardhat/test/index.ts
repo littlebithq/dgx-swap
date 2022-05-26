@@ -98,7 +98,7 @@ describe("DGX Swap Contract", function () {
 
   it("Should not allow user to swap if contract has insufficient CGT balance", async function () {
     expect(
-      swapContract.connect(dgxHolder).swap(1000 * 10**await dgxToken.decimals())
+      swapContract.connect(dgxHolder).swap(10 * 10**await dgxToken.decimals())
     ).to.be.revertedWith('Insufficient CGT in contract');
   });
 });
