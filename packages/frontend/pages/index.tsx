@@ -17,6 +17,7 @@ const Home: NextPage = () => {
   const [balance, setBalance] = useState("");
   const [DGXBalance, setDGXBalance] = useState("");
   const [CGTBalance, setCGTBalance] = useState("");
+  const [approved, setapproved] = useState(false);
   const isBrowser = typeof window !== "undefined";
 
   const notifyHandler = useCallback((type, message) => {
@@ -95,7 +96,7 @@ const Home: NextPage = () => {
     }
   };
 
-  const swapTokenHandler = async (amount: any) => {
+  const approveTokenHandler = async (amount: any) => {
     //@ts-ignore
     const { ethereum } = window;
     if (!currentAccount) {
@@ -108,17 +109,48 @@ const Home: NextPage = () => {
 
       if ((await provider.getNetwork()).chainId === 31337) {
         const DGXContract = new ethers.Contract(
-          "0x4f3AfEC4E5a3F2A6a1A411DEF7D7dFe50eE057bF",
+          "0x96F3Ce39Ad2BfDCf92C0F6E2C2CAbF83874660Fc",
           DGXToken.abi,
           signer
         );
         DGXContract.approve(
-          "0x4bf010f1b9beDA5450a8dD702ED602A104ff65EE",
-          amount * 10 ** 9,
-          { gasLimit: 100000 }
+          "0xde2Bd2ffEA002b8E84ADeA96e5976aF664115E2c",
+          amount * 10 ** 9
         );
+        DGXContract.on("Approval", (owner, spender, value) => {
+          console.log(approved);
+          setapproved(true);
+        });
+      }
+    }
+  };
+  const swapTokenHandler = async (amount: any) => {
+    //@ts-ignore
+    const { ethereum } = window;
+    if (!currentAccount) {
+      console.log("warning", "please connect your wallet!");
+      return;
+    }
+    if (!approved) {
+      alert("not approved");
+      return;
+    }
+    if (ethereum) {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+
+      if ((await provider.getNetwork()).chainId === 31337) {
+        // const DGXContract = new ethers.Contract(
+        //   "0x96F3Ce39Ad2BfDCf92C0F6E2C2CAbF83874660Fc",
+        //   DGXToken.abi,
+        //   signer
+        // );
+        // DGXContract.approve(
+        //   "0xde2Bd2ffEA002b8E84ADeA96e5976aF664115E2c",
+        //   amount * 10 ** 9
+        // );
         const DGXSwapContract = new ethers.Contract(
-          "0x4bf010f1b9beDA5450a8dD702ED602A104ff65EE",
+          "0xde2Bd2ffEA002b8E84ADeA96e5976aF664115E2c",
           DgxSwap.abi,
           signer
         );
@@ -160,6 +192,8 @@ const Home: NextPage = () => {
           }}
         >
           <SwapForm
+            approve={approveTokenHandler}
+            approved={approved}
             swapTokens={swapTokenHandler}
             CGTBalance={CGTBalance}
             DGXBalance={DGXBalance}
