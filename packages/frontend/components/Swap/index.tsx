@@ -7,10 +7,18 @@ interface Props {
   CGTBalance: string;
   DGXBalance: string;
   checkbal: () => void;
+  approved: boolean;
+  approve: (amount: any) => void;
   swapTokens: (amount: any) => void;
 }
 
-const SwapForm = ({ CGTBalance, DGXBalance, swapTokens, checkbal }: Props) => {
+const SwapForm = ({
+  CGTBalance,
+  DGXBalance,
+  swapTokens,
+  approve,
+  approved,
+}: Props) => {
   const { register, handleSubmit, watch, getValues } = useForm();
   return (
     <div className="bg-[#191b1f] p-8 rounded-[10px] shadow-xl">
@@ -72,10 +80,18 @@ const SwapForm = ({ CGTBalance, DGXBalance, swapTokens, checkbal }: Props) => {
         </div>
         <div className="flex flex-col justify-center items-center">
           <button
-            type="submit"
-            className="text-black bg-[#FBD03B] mt-5 uppercase px-[50px] py-[6px] rounded-[5px] flex items-center justify-center "
+            type="button"
+            onClick={() => approve(watch("amount"))}
+            className="mr-2 text-black bg-[#FBD03B] mt-5 uppercase px-[50px] py-[6px] rounded-[5px] flex items-center justify-center "
           >
-            SWAP
+            APPROVE
+          </button>{" "}
+          <button
+            type="submit"
+            disabled={!approved}
+            className="disabled:opacity-95 text-black bg-[#FBD03B] mt-5 uppercase px-[50px] py-[6px] rounded-[5px] flex items-center justify-center "
+          >
+            {!approved ? "PENDING APPROVAL" : "SWAP"}
           </button>
         </div>
       </form>
