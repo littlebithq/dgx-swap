@@ -6,11 +6,19 @@ import ethLogo from "../../assets/dgx-coin.svg";
 interface Props {
   CGTBalance: string;
   DGXBalance: string;
+  approved: boolean;
   checkbal: () => void;
+  approve: (amount: any) => void;
   swapTokens: (amount: any) => void;
 }
 
-const SwapForm = ({ CGTBalance, DGXBalance, swapTokens, checkbal }: Props) => {
+const SwapForm = ({
+  CGTBalance,
+  DGXBalance,
+  swapTokens,
+  approve,
+  approved,
+}: Props) => {
   const { register, handleSubmit, watch, getValues } = useForm();
   return (
     <div className="bg-[#191b1f] p-8 rounded-[10px] shadow-xl">
@@ -70,12 +78,20 @@ const SwapForm = ({ CGTBalance, DGXBalance, swapTokens, checkbal }: Props) => {
             <li>You will recieve an equivalent amount of CGT tokens</li>
           </ul>
         </div>
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-row justify-center items-center">
+          <button
+            type="button"
+            onClick={() => approve(watch("amount"))}
+            className="mr-2 text-black bg-[#FBD03B] mt-5 uppercase px-[50px] py-[6px] rounded-[5px] flex items-center justify-center "
+          >
+            APPROVE
+          </button>{" "}
           <button
             type="submit"
-            className="text-black bg-[#FBD03B] mt-5 uppercase px-[50px] py-[6px] rounded-[5px] flex items-center justify-center "
+            disabled={!approved}
+            className="disabled:opacity-95 text-black bg-[#FBD03B] mt-5 uppercase px-[50px] py-[6px] rounded-[5px] flex items-center justify-center "
           >
-            SWAP
+            {!approved ? "PENDING APPROVAL" : "SWAP"}
           </button>
         </div>
       </form>

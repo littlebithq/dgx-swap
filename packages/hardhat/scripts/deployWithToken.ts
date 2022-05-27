@@ -1,9 +1,9 @@
 import { config, ethers } from "hardhat";
-import { Contract } from 'ethers';
+import { Contract } from "ethers";
 import * as hre from "hardhat";
-import fs from 'fs';
+import fs from "fs";
 
-const userAddress = "";
+const userAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 const cgtAddress = "0xf5238462e7235c7b62811567e63dd17d12c2eaa0";
 
 async function main() {
@@ -27,39 +27,37 @@ async function main() {
   console.log("SwapContract deployed to:", swapContract.address);
 
   return {
-    'SwapContract': swapContract,
-    'DGXToken': dgxToken
-  }
-};
+    SwapContract: swapContract,
+    DGXToken: dgxToken,
+  };
+}
 
-async function verify(contractAddress:string, ...args:Array<any>) {
+async function verify(contractAddress: string, ...args: Array<any>) {
   console.log("verifying", contractAddress, ...args);
   await hre.run("verify:verify", {
     address: contractAddress,
-    constructorArguments: [
-      ...args
-    ],
+    constructorArguments: [...args],
   });
-};
+}
 
 function saveFrontendFiles(contract: Contract, contractName: string) {
-  console.log('Adding to frontend', contractName)
+  console.log("Adding to frontend", contractName);
   fs.appendFileSync(
     `../frontend/artifacts/contractAddress.ts`,
     `export const ${contractName} = '${contract.address}'\n`
   );
-};
+}
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 main()
-.then(async(deployedData) => {
-  // await verify(deployedData.SwapContract.address);
-  saveFrontendFiles(deployedData.SwapContract, 'SwapContract');
-  saveFrontendFiles(deployedData.DGXToken, 'DGXToken');
-  process.exit(0);
-})
-.catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+  .then(async (deployedData) => {
+    // await verify(deployedData.SwapContract.address);
+    saveFrontendFiles(deployedData.SwapContract, "SwapContract");
+    saveFrontendFiles(deployedData.DGXToken, "DGXToken");
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });

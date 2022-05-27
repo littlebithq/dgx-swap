@@ -10,7 +10,7 @@ const cgtHolderAddress = "0x8cad96fb23924ebc37b8cdafa8400ad856fe4a2c";
 const dgxHolderAddress = "0x85cf88abf2ad75073191e8f474da621a76fab5c6";
 
 // Replace these addresses as required
-const swapContract = "0x4bf010f1b9beDA5450a8dD702ED602A104ff65EE";
+const swapContract = "0xde2Bd2ffEA002b8E84ADeA96e5976aF664115E2c";
 const userAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 
 async function main() {
