@@ -85,19 +85,21 @@ describe("DGX Swap Contract", function () {
   });
 
   it("Should not allow user to swap DGX without approving", async function () {
-    expect(
+    await expect(
       swapContract.connect(dgxHolder).swap(100 * 10**await dgxToken.decimals())
     ).to.be.revertedWith('Amount exceeds DGX allowance');
   });
 
   it("Should not allow user to swap DGX without sufficient balance", async function () {
-    expect(
+    await dgxToken.approve(swapContract.address, 100 * 10**await dgxToken.decimals());
+    await expect(
       swapContract.swap(100 * 10**await dgxToken.decimals())
     ).to.be.revertedWith('Insufficient DGX balance');
   });
 
   it("Should not allow user to swap if contract has insufficient CGT balance", async function () {
-    expect(
+    await dgxToken.connect(dgxHolder).approve(swapContract.address, 1000 * 10**await dgxToken.decimals());
+    await expect(
       swapContract.connect(dgxHolder).swap(1000 * 10**await dgxToken.decimals())
     ).to.be.revertedWith('Insufficient CGT in contract');
   });
