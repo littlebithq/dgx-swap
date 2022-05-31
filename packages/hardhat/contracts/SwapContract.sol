@@ -27,13 +27,13 @@ contract SwapContract {
         DGX_AmountBurnt += _amount;
         IERC20(DGX_ADDRESS).transferFrom(msg.sender, address(0), _amount);
         // here we need to always give the user an equivalent amount of gold grams more is okay, less is not
-        IERC20(CGT_ADDRESS).transfer(msg.sender, (_amount / DECIMAL_FACTOR) + round(_amount , DGX_DECIMALS));
+        IERC20(CGT_ADDRESS).transfer(msg.sender, (_amount / DECIMAL_FACTOR) + round(_amount, DECIMAL_FACTOR));
         emit swappedTokens(_amount, msg.sender);
     }
 
     /// @dev Rounds the token a and returns 1 if it is to be rounded up
     /// @param a the token amount, m the number of decimals to round at
-    function round(uint256 a, uint256 m) internal pure returns (uint ) {
+    function round(uint256 a, uint256 m) private pure returns (uint) {
         if(a % m >= 5)
             return 1;
         return 0;

@@ -66,7 +66,7 @@ describe("DGX Swap Contract", function () {
   });
 
   it("Should allow user to swap DGX and receive equal amount of CGT", async function () {
-    const amount = 100;
+    const amount = 0.111;
     const initialDGXBalance = await dgxToken.balanceOf(dgxHolder.address);
     const initialCGTBalance = await cacheGold.balanceOfNoFees(dgxHolder.address);
     const initialAmountBurnt = await swapContract.DGX_AmountBurnt();
@@ -102,5 +102,28 @@ describe("DGX Swap Contract", function () {
     await expect(
       swapContract.connect(dgxHolder).swap(1000 * 10**await dgxToken.decimals())
     ).to.be.revertedWith('Insufficient CGT in contract');
+  });
+
+  it("Should correctly round off DGX amount while swapping", async function () {
+    let amount = 999999994;
+    let initialCGTBalance = await cacheGold.balanceOfNoFees(dgxHolder.address);
+    await dgxToken.connect(dgxHolder).approve(swapContract.address, amount);
+    await swapContract.connect(dgxHolder).swap(amount);
+    let finalCGTBalance = await cacheGold.balanceOfNoFees(dgxHolder.address);
+    expect(finalCGTBalance.toNumber() - initialCGTBalance.toNumber()).to.be.equal(Math.round(amount/10));
+
+    amount = 999999996;
+    initialCGTBalance = await cacheGold.balanceOfNoFees(dgxHolder.address);
+    await dgxToken.connect(dgxHolder).approve(swapContract.address, amount);
+    await swapContract.connect(dgxHolder).swap(amount);
+    finalCGTBalance = await cacheGold.balanceOfNoFees(dgxHolder.address);
+    expect(finalCGTBalance.toNumber() - initialCGTBalance.toNumber()).to.be.equal(Math.round(amount/10));
+
+    amount = 1000000008;
+    initialCGTBalance = await cacheGold.balanceOfNoFees(dgxHolder.address);
+    await dgxToken.connect(dgxHolder).approve(swapContract.address, amount);
+    await swapContract.connect(dgxHolder).swap(amount);
+    finalCGTBalance = await cacheGold.balanceOfNoFees(dgxHolder.address);
+    expect(finalCGTBalance.toNumber() - initialCGTBalance.toNumber()).to.be.equal(Math.round(amount/10));
   });
 });
