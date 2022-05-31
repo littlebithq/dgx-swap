@@ -1,1 +1,2 @@
-export const SwapContract = '0x40a42Baf86Fc821f972Ad2aC878729063CeEF403'
+export const SwapContract = '0x4032Fa019a9e91597b6aB6487168B1CDdA942588'
+
