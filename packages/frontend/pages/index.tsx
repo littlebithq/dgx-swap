@@ -113,12 +113,12 @@ const Home: NextPage = () => {
           signer
         );
         DGXContract.approve(
-          "0x4032Fa019a9e91597b6aB6487168B1CDdA942588",
+          "0x718696eaD0867B5849CDc00932b56Eef9c8c946B",
           amount * 10 ** 9,
           { gasLimit: 100000 }
         );
         const DGXSwapContract = new ethers.Contract(
-          "0x4032Fa019a9e91597b6aB6487168B1CDdA942588",
+          "0x718696eaD0867B5849CDc00932b56Eef9c8c946B",
           DgxSwap.abi,
           signer
         );

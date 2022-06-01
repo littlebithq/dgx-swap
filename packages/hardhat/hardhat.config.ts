@@ -76,7 +76,7 @@ const config: HardhatUserConfig = {
         accounts,
     },
     kovan: {
-        url: `https://kovan.infura.io/v3/${process.env.INFURA_API_KEY}`, 
+        url: `https://eth-kovan.alchemyapi.io/v2/HI8npM_DUD5_7FM24hWts9cN_73kDRg3`, 
         accounts,
     },
     polygon: {

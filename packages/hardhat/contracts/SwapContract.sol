@@ -8,8 +8,8 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract SwapContract {
 
-    address public constant CGT_ADDRESS = 0xF5238462E7235c7B62811567E63Dd17d12C2EAA0;
-    address public constant DGX_ADDRESS = 0x4f3AfEC4E5a3F2A6a1A411DEF7D7dFe50eE057bF;
+    address public constant CGT_ADDRESS = 0x1BDe87e1f83A20a39fcFDED73363DeBE3a88f602;
+    address public constant DGX_ADDRESS = 0xB5BDc848Ed5662DC0C52b306EEDF8c33584a3243;
 
     uint public DGX_AmountBurnt;
     uint constant DGX_DECIMALS = 10 ** 9;
