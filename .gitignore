@@ -1,3 +1,4 @@
 node_modules
 frontend/artifacts/
 steady-hardhat/src/types/
+frontend/.next/
