@@ -9,7 +9,6 @@ import DGXToken from "../contracts/Token.json";
 import CGTToken from "../contracts/CacheGold.json";
 import DgxSwap from "../contracts/SwapContract.json";
 
-const contractAddress = "0xb5BB667D000137bbbdCc68D9b4552b8E0E1fEF22";
 //@ts-ignore
 
 const Home: NextPage = () => {
@@ -17,6 +16,7 @@ const Home: NextPage = () => {
   const [balance, setBalance] = useState("");
   const [DGXBalance, setDGXBalance] = useState("");
   const [CGTBalance, setCGTBalance] = useState("");
+  const [approved, setapproved] = useState(false);
   const isBrowser = typeof window !== "undefined";
 
   const notifyHandler = useCallback((type, message) => {
@@ -94,8 +94,7 @@ const Home: NextPage = () => {
       notifyHandler("error", err["message"]);
     }
   };
-
-  const swapTokenHandler = async (amount: any) => {
+    const approveTokenHandler = async (amount: any) => {
     //@ts-ignore
     const { ethereum } = window;
     if (!currentAccount) {
@@ -106,7 +105,7 @@ const Home: NextPage = () => {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
 
-      if ((await provider.getNetwork()).chainId === 42) {
+      if ((await provider.getNetwork()).chainId === 31337) {
         const DGXContract = new ethers.Contract(
           "0xB5BDc848Ed5662DC0C52b306EEDF8c33584a3243",
           DGXToken.abi,
@@ -114,9 +113,37 @@ const Home: NextPage = () => {
         );
         DGXContract.approve(
           "0x718696eaD0867B5849CDc00932b56Eef9c8c946B",
-          amount * 10 ** 9,
-          { gasLimit: 100000 }
+          amount * 10 ** 9
         );
+        setapproved(true);
+      }
+    }
+  };
+    const swapTokenHandler = async (amount: any) => {
+    //@ts-ignore
+    const { ethereum } = window;
+    if (!currentAccount) {
+      console.log("warning", "please connect your wallet!");
+      return;
+    }
+    if (!approved) {
+      alert("not approved");
+      return;
+    }
+    if (ethereum) {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+
+      if ((await provider.getNetwork()).chainId === 42) {
+        // const DGXContract = new ethers.Contract(
+        //   "0x96F3Ce39Ad2BfDCf92C0F6E2C2CAbF83874660Fc",
+        //   DGXToken.abi,
+        //   signer
+        // );
+        // DGXContract.approve(
+        //   "0xde2Bd2ffEA002b8E84ADeA96e5976aF664115E2c",
+        //   amount * 10 ** 9
+        // );
         const DGXSwapContract = new ethers.Contract(
           "0x718696eaD0867B5849CDc00932b56Eef9c8c946B",
           DgxSwap.abi,
@@ -160,10 +187,12 @@ const Home: NextPage = () => {
           }}
         >
           <SwapForm
+            approved={approved}
             swapTokens={swapTokenHandler}
+            approve={approveTokenHandler}
             CGTBalance={CGTBalance}
             DGXBalance={DGXBalance}
-            checkbal={checkTokenBalance}
+            // checkbal={checkTokenBalance}
           />
         </main>
       </div>

@@ -4,6 +4,25 @@
   "sourceName": "contracts/SwapContract.sol",
   "abi": [
     {
+<<<<<<< HEAD
+=======
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_CGT_ADDRESS",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_DGX_ADDRESS",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+>>>>>>> dev1
       "anonymous": false,
       "inputs": [
         {

@@ -8,12 +8,15 @@ import type { Ownable, OwnableInterface } from "../Ownable";
 
 const _abi = [
   {
+<<<<<<< HEAD
     inputs: [],
     payable: false,
     stateMutability: "nonpayable",
     type: "constructor",
   },
   {
+=======
+>>>>>>> dev1
     anonymous: false,
     inputs: [
       {
@@ -33,6 +36,7 @@ const _abi = [
     type: "event",
   },
   {
+<<<<<<< HEAD
     constant: true,
     inputs: [],
     name: "isOwner",
@@ -49,6 +53,8 @@ const _abi = [
   },
   {
     constant: true,
+=======
+>>>>>>> dev1
     inputs: [],
     name: "owner",
     outputs: [
@@ -58,21 +64,33 @@ const _abi = [
         type: "address",
       },
     ],
+<<<<<<< HEAD
     payable: false,
+=======
+>>>>>>> dev1
     stateMutability: "view",
     type: "function",
   },
   {
+<<<<<<< HEAD
     constant: false,
     inputs: [],
     name: "renounceOwnership",
     outputs: [],
     payable: false,
+=======
+    inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+>>>>>>> dev1
     stateMutability: "nonpayable",
     type: "function",
   },
   {
+<<<<<<< HEAD
     constant: false,
+=======
+>>>>>>> dev1
     inputs: [
       {
         internalType: "address",
@@ -82,7 +100,10 @@ const _abi = [
     ],
     name: "transferOwnership",
     outputs: [],
+<<<<<<< HEAD
     payable: false,
+=======
+>>>>>>> dev1
     stateMutability: "nonpayable",
     type: "function",
   },

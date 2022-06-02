@@ -5,7 +5,9 @@
   "scripts": {
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
-    "deploy":"npx hardhat run scripts/deploy.ts --network localhost"
+    "start": "npx hardhat node",
+    "deploy": "npx hardhat run scripts/deploy.ts --network localhost",
+    "transfer": "npx hardhat run scripts/tokenTransfer.ts --network localhost"
   },
   "author": "",
   "license": "ISC",
