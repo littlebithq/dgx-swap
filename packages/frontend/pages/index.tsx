@@ -17,6 +17,7 @@ const Home: NextPage = () => {
   const [DGXBalance, setDGXBalance] = useState("");
   const [CGTBalance, setCGTBalance] = useState("");
   const [approved, setapproved] = useState(false);
+  const [loading, setLoading] = useState(false);
   const isBrowser = typeof window !== "undefined";
 
   const notifyHandler = useCallback((type, message) => {
@@ -54,6 +55,11 @@ const Home: NextPage = () => {
   const checkWalletIsConnected = async () => {
     //@ts-ignore
     const { ethereum } = window;
+     const provider = new ethers.providers.Web3Provider(ethereum);
+    if((await provider.getNetwork()).chainId != 42){
+      notifyHandler("error", "Please connect to kovan test net!");
+      return;
+    }
 
     if (!ethereum) {
       notifyHandler("error", "Make sure you have Metamask installed!");
@@ -74,7 +80,12 @@ const Home: NextPage = () => {
   const connectWalletHandler = async () => {
     //@ts-ignore
     const { ethereum } = window;
-
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    if((await provider.getNetwork()).chainId != 42){
+      notifyHandler("error", "Please connect to kovan test net!");
+      return;
+    }
+    
     if (!ethereum) {
       notifyHandler("error", "Please install Metamask!");
     }
@@ -85,7 +96,7 @@ const Home: NextPage = () => {
       });
 
       setCurrentAccount(accounts[0]);
-      const provider = new ethers.providers.Web3Provider(ethereum);
+      
 
       const balance = await provider.getBalance(accounts[0]);
 
@@ -96,7 +107,12 @@ const Home: NextPage = () => {
   };
     const approveTokenHandler = async (amount: any) => {
     //@ts-ignore
-    const { ethereum } = window;
+     const { ethereum } = window;
+    if(amount > DGXBalance) {
+      notifyHandler("error", "Amount exceeds DGX token balance ");
+      return;
+    }
+   
     if (!currentAccount) {
       console.log("warning", "please connect your wallet!");
       return;
@@ -105,7 +121,7 @@ const Home: NextPage = () => {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
 
-      if ((await provider.getNetwork()).chainId === 31337) {
+      if ((await provider.getNetwork()).chainId === 42) {
         const DGXContract = new ethers.Contract(
           "0xB5BDc848Ed5662DC0C52b306EEDF8c33584a3243",
           DGXToken.abi,
@@ -113,13 +129,15 @@ const Home: NextPage = () => {
         );
         DGXContract.approve(
           "0x718696eaD0867B5849CDc00932b56Eef9c8c946B",
-          amount * 10 ** 9
+          amount * 10 ** 9,
+          { gasLimit: 100000 }
         );
         setapproved(true);
       }
     }
   };
     const swapTokenHandler = async (amount: any) => {
+      setLoading(true);
     //@ts-ignore
     const { ethereum } = window;
     if (!currentAccount) {
@@ -152,6 +170,7 @@ const Home: NextPage = () => {
         DGXSwapContract.swap(amount * 10 ** 9);
       }
     }
+    setLoading(false);
   };
   const connectWalletButton = () => {
     return (
@@ -192,6 +211,7 @@ const Home: NextPage = () => {
             approve={approveTokenHandler}
             CGTBalance={CGTBalance}
             DGXBalance={DGXBalance}
+            loading={loading}
             // checkbal={checkTokenBalance}
           />
         </main>

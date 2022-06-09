@@ -7,11 +7,12 @@ interface Props {
   CGTBalance: string;
   DGXBalance: string;
   approved: boolean;
+  loading: boolean;
   approve: (amount: any) => void;
   swapTokens: (amount: any) => void;
 }
 
-const SwapForm = ({ CGTBalance, DGXBalance, swapTokens, approved, approve }: Props) => {
+const SwapForm = ({ CGTBalance, DGXBalance, swapTokens, approved, approve, loading }: Props) => {
   const { register, handleSubmit, watch, getValues } = useForm();
   return (
     <div className="bg-[#191b1f] p-8 rounded-[10px] shadow-xl">
@@ -67,7 +68,7 @@ const SwapForm = ({ CGTBalance, DGXBalance, swapTokens, approved, approve }: Pro
           <ul>
             How it works?
             <li>You can only swap DGX to CGT using DGXSwap</li>
-            <li>Your DGX tokens will be sent to the 0x00000000.. address</li>
+            <li>Your DGX tokens will be sent to the 0x718696eaD0867B5849CDc00932b56Eef9c8c946B address</li>
             <li>You will recieve an equivalent amount of CGT tokens</li>
           </ul>
         </div>
