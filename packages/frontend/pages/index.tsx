@@ -8,7 +8,8 @@ import toast from "../components/Toast";
 import DGXToken from "../contracts/Token.json";
 import CGTToken from "../contracts/CacheGold.json";
 import DgxSwap from "../contracts/SwapContract.json";
-
+declare let window: any;
+const contractAddress = "0xb5BB667D000137bbbdCc68D9b4552b8E0E1fEF22";
 //@ts-ignore
 
 const Home: NextPage = () => {
@@ -27,10 +28,12 @@ const Home: NextPage = () => {
 
   const checkTokenBalance = async () => {
     //@ts-ignore
-    const { ethereum } = window;
-    if (!ethereum) {
-      return;
-    }
+
+    if (typeof window !== "undefined") {
+      const { ethereum } = window;
+      if (!ethereum) {
+        return;
+      }
     try {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
@@ -51,20 +54,18 @@ const Home: NextPage = () => {
     } catch (error) {
       console.log(error);
     }
+  }
+
   };
   const checkWalletIsConnected = async () => {
     //@ts-ignore
-    const { ethereum } = window;
-     const provider = new ethers.providers.Web3Provider(ethereum);
-    if((await provider.getNetwork()).chainId != 42){
-      notifyHandler("error", "Please connect to kovan test net!");
-      return;
-    }
-
-    if (!ethereum) {
-      notifyHandler("error", "Make sure you have Metamask installed!");
-      return;
-    }
+    if (typeof window !== "undefined") {
+      const { ethereum } = window;
+      if (!ethereum) {
+        notifyHandler("error", "Make sure you have Metamask installed!");
+        return;
+      }
+    
 
     const accounts = await ethereum.request({ method: "eth_accounts" });
 
@@ -74,10 +75,14 @@ const Home: NextPage = () => {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const balance = await provider.getBalance(account);
       setBalance(ethers.utils.formatEther(balance));
+    
     }
+  }
   };
 
   const connectWalletHandler = async () => {
+    if (typeof window !== "undefined") {
+ 
     //@ts-ignore
     const { ethereum } = window;
     const provider = new ethers.providers.Web3Provider(ethereum);
@@ -104,9 +109,11 @@ const Home: NextPage = () => {
     } catch (err: any) {
       notifyHandler("error", err["message"]);
     }
+  }
   };
     const approveTokenHandler = async (amount: any) => {
     //@ts-ignore
+    if (typeof window !== "undefined") {
      const { ethereum } = window;
     if(amount > DGXBalance) {
       notifyHandler("error", "Amount exceeds DGX token balance ");
@@ -135,8 +142,10 @@ const Home: NextPage = () => {
         setapproved(true);
       }
     }
-  };
+  }
+};
     const swapTokenHandler = async (amount: any) => {
+      if (typeof window !== "undefined") {
       setLoading(true);
     //@ts-ignore
     const { ethereum } = window;
@@ -171,6 +180,7 @@ const Home: NextPage = () => {
       }
     }
     setLoading(false);
+  }
   };
   const connectWalletButton = () => {
     return (
