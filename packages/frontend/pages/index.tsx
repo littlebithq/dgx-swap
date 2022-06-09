@@ -8,7 +8,7 @@ import toast from "../components/Toast";
 import DGXToken from "../contracts/Token.json";
 import CGTToken from "../contracts/CacheGold.json";
 import DgxSwap from "../contracts/SwapContract.json";
-
+declare let window: any;
 const contractAddress = "0xb5BB667D000137bbbdCc68D9b4552b8E0E1fEF22";
 //@ts-ignore
 
@@ -18,6 +18,10 @@ const Home: NextPage = () => {
   const [DGXBalance, setDGXBalance] = useState("");
   const [CGTBalance, setCGTBalance] = useState("");
   const [approved, setapproved] = useState(false);
+<<<<<<< HEAD
+=======
+  const [loading, setLoading] = useState(false);
+>>>>>>> main
   const isBrowser = typeof window !== "undefined";
 
   const notifyHandler = useCallback((type, message) => {
@@ -27,39 +31,44 @@ const Home: NextPage = () => {
 
   const checkTokenBalance = async () => {
     //@ts-ignore
-    const { ethereum } = window;
-    if (!ethereum) {
-      return;
-    }
+
+    if (typeof window !== "undefined") {
+      const { ethereum } = window;
+      if (!ethereum) {
+        return;
+      }
     try {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
       const DGXContract = new ethers.Contract(
-        "0x4f3AfEC4E5a3F2A6a1A411DEF7D7dFe50eE057bF",
+        "0xB5BDc848Ed5662DC0C52b306EEDF8c33584a3243",
         DGXToken.abi,
         signer
       );
       const CGTContract = new ethers.Contract(
-        "0xf5238462e7235c7b62811567e63dd17d12c2eaa0",
+        "0x1BDe87e1f83A20a39fcFDED73363DeBE3a88f602",
         CGTToken.abi,
         signer
       );
       const dgxbalance = await DGXContract.balanceOf(currentAccount);
       const cgtbalance = await CGTContract.balanceOf(currentAccount);
-      setCGTBalance(ethers.utils.formatUnits(cgtbalance, "10"));
+      setCGTBalance(ethers.utils.formatUnits(cgtbalance, "8"));
       setDGXBalance(ethers.utils.formatUnits(dgxbalance, "9"));
     } catch (error) {
       console.log(error);
     }
+  }
+
   };
   const checkWalletIsConnected = async () => {
     //@ts-ignore
-    const { ethereum } = window;
-
-    if (!ethereum) {
-      notifyHandler("error", "Make sure you have Metamask installed!");
-      return;
-    }
+    if (typeof window !== "undefined") {
+      const { ethereum } = window;
+      if (!ethereum) {
+        notifyHandler("error", "Make sure you have Metamask installed!");
+        return;
+      }
+    
 
     const accounts = await ethereum.request({ method: "eth_accounts" });
 
@@ -69,13 +78,22 @@ const Home: NextPage = () => {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const balance = await provider.getBalance(account);
       setBalance(ethers.utils.formatEther(balance));
+    
     }
+  }
   };
 
   const connectWalletHandler = async () => {
+    if (typeof window !== "undefined") {
+ 
     //@ts-ignore
     const { ethereum } = window;
-
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    if((await provider.getNetwork()).chainId != 42){
+      notifyHandler("error", "Please connect to kovan test net!");
+      return;
+    }
+    
     if (!ethereum) {
       notifyHandler("error", "Please install Metamask!");
     }
@@ -86,7 +104,7 @@ const Home: NextPage = () => {
       });
 
       setCurrentAccount(accounts[0]);
-      const provider = new ethers.providers.Web3Provider(ethereum);
+      
 
       const balance = await provider.getBalance(accounts[0]);
 
@@ -94,11 +112,22 @@ const Home: NextPage = () => {
     } catch (err: any) {
       notifyHandler("error", err["message"]);
     }
+  }
   };
+<<<<<<< HEAD
 
   const approveTokenHandler = async (amount: any) => {
+=======
+    const approveTokenHandler = async (amount: any) => {
+>>>>>>> main
     //@ts-ignore
-    const { ethereum } = window;
+    if (typeof window !== "undefined") {
+     const { ethereum } = window;
+    if(amount > DGXBalance) {
+      notifyHandler("error", "Amount exceeds DGX token balance ");
+      return;
+    }
+   
     if (!currentAccount) {
       console.log("warning", "please connect your wallet!");
       return;
@@ -107,13 +136,18 @@ const Home: NextPage = () => {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
 
-      if ((await provider.getNetwork()).chainId === 31337) {
+      if ((await provider.getNetwork()).chainId === 42) {
         const DGXContract = new ethers.Contract(
+<<<<<<< HEAD
           "0x96F3Ce39Ad2BfDCf92C0F6E2C2CAbF83874660Fc",
+=======
+          "0xB5BDc848Ed5662DC0C52b306EEDF8c33584a3243",
+>>>>>>> main
           DGXToken.abi,
           signer
         );
         DGXContract.approve(
+<<<<<<< HEAD
           "0xde2Bd2ffEA002b8E84ADeA96e5976aF664115E2c",
           amount * 10 ** 9
         );
@@ -125,6 +159,20 @@ const Home: NextPage = () => {
     }
   };
   const swapTokenHandler = async (amount: any) => {
+=======
+          "0x718696eaD0867B5849CDc00932b56Eef9c8c946B",
+          amount * 10 ** 9,
+          { gasLimit: 100000 }
+        );
+        setapproved(true);
+      }
+    }
+  }
+};
+    const swapTokenHandler = async (amount: any) => {
+      if (typeof window !== "undefined") {
+      setLoading(true);
+>>>>>>> main
     //@ts-ignore
     const { ethereum } = window;
     if (!currentAccount) {
@@ -139,7 +187,11 @@ const Home: NextPage = () => {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
 
+<<<<<<< HEAD
       if ((await provider.getNetwork()).chainId === 31337) {
+=======
+      if ((await provider.getNetwork()).chainId === 42) {
+>>>>>>> main
         // const DGXContract = new ethers.Contract(
         //   "0x96F3Ce39Ad2BfDCf92C0F6E2C2CAbF83874660Fc",
         //   DGXToken.abi,
@@ -150,13 +202,19 @@ const Home: NextPage = () => {
         //   amount * 10 ** 9
         // );
         const DGXSwapContract = new ethers.Contract(
+<<<<<<< HEAD
           "0xde2Bd2ffEA002b8E84ADeA96e5976aF664115E2c",
+=======
+          "0x718696eaD0867B5849CDc00932b56Eef9c8c946B",
+>>>>>>> main
           DgxSwap.abi,
           signer
         );
         DGXSwapContract.swap(amount * 10 ** 9);
       }
     }
+    setLoading(false);
+  }
   };
   const connectWalletButton = () => {
     return (
@@ -192,12 +250,17 @@ const Home: NextPage = () => {
           }}
         >
           <SwapForm
+<<<<<<< HEAD
             approve={approveTokenHandler}
+=======
+>>>>>>> main
             approved={approved}
             swapTokens={swapTokenHandler}
+            approve={approveTokenHandler}
             CGTBalance={CGTBalance}
             DGXBalance={DGXBalance}
-            checkbal={checkTokenBalance}
+            loading={loading}
+            // checkbal={checkTokenBalance}
           />
         </main>
       </div>

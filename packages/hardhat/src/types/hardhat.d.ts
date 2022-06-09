@@ -13,6 +13,25 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
+<<<<<<< HEAD
+=======
+      name: "Ownable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Ownable__factory>;
+    getContractFactory(
+      name: "ERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20__factory>;
+    getContractFactory(
+      name: "ERC20Burnable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Burnable__factory>;
+    getContractFactory(
+      name: "IERC20Metadata",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20Metadata__factory>;
+    getContractFactory(
+>>>>>>> dev1
       name: "IERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
@@ -72,8 +91,37 @@ declare module "hardhat/types/runtime" {
       name: "TokenTransferController",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TokenTransferController__factory>;
+<<<<<<< HEAD
 
     getContractAt(
+=======
+    getContractFactory(
+      name: "DGXToken",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.DGXToken__factory>;
+
+    getContractAt(
+      name: "Ownable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Ownable>;
+    getContractAt(
+      name: "ERC20",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20>;
+    getContractAt(
+      name: "ERC20Burnable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Burnable>;
+    getContractAt(
+      name: "IERC20Metadata",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20Metadata>;
+    getContractAt(
+>>>>>>> dev1
       name: "IERC20",
       address: string,
       signer?: ethers.Signer
@@ -148,6 +196,14 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.TokenTransferController>;
+<<<<<<< HEAD
+=======
+    getContractAt(
+      name: "DGXToken",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.DGXToken>;
+>>>>>>> dev1
 
     // default types
     getContractFactory(
