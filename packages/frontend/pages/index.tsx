@@ -18,10 +18,7 @@ const Home: NextPage = () => {
   const [DGXBalance, setDGXBalance] = useState("");
   const [CGTBalance, setCGTBalance] = useState("");
   const [approved, setapproved] = useState(false);
-<<<<<<< HEAD
-=======
   const [loading, setLoading] = useState(false);
->>>>>>> main
   const isBrowser = typeof window !== "undefined";
 
   const notifyHandler = useCallback((type, message) => {
@@ -114,12 +111,7 @@ const Home: NextPage = () => {
     }
   }
   };
-<<<<<<< HEAD
-
-  const approveTokenHandler = async (amount: any) => {
-=======
     const approveTokenHandler = async (amount: any) => {
->>>>>>> main
     //@ts-ignore
     if (typeof window !== "undefined") {
      const { ethereum } = window;
@@ -138,28 +130,11 @@ const Home: NextPage = () => {
 
       if ((await provider.getNetwork()).chainId === 42) {
         const DGXContract = new ethers.Contract(
-<<<<<<< HEAD
-          "0x96F3Ce39Ad2BfDCf92C0F6E2C2CAbF83874660Fc",
-=======
           "0xB5BDc848Ed5662DC0C52b306EEDF8c33584a3243",
->>>>>>> main
           DGXToken.abi,
           signer
         );
         DGXContract.approve(
-<<<<<<< HEAD
-          "0xde2Bd2ffEA002b8E84ADeA96e5976aF664115E2c",
-          amount * 10 ** 9
-        );
-        DGXContract.on("Approval", (owner, spender, value) => {
-          console.log(approved);
-          setapproved(true);
-        });
-      }
-    }
-  };
-  const swapTokenHandler = async (amount: any) => {
-=======
           "0x718696eaD0867B5849CDc00932b56Eef9c8c946B",
           amount * 10 ** 9,
           { gasLimit: 100000 }
@@ -172,7 +147,6 @@ const Home: NextPage = () => {
     const swapTokenHandler = async (amount: any) => {
       if (typeof window !== "undefined") {
       setLoading(true);
->>>>>>> main
     //@ts-ignore
     const { ethereum } = window;
     if (!currentAccount) {
@@ -187,11 +161,7 @@ const Home: NextPage = () => {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
 
-<<<<<<< HEAD
-      if ((await provider.getNetwork()).chainId === 31337) {
-=======
       if ((await provider.getNetwork()).chainId === 42) {
->>>>>>> main
         // const DGXContract = new ethers.Contract(
         //   "0x96F3Ce39Ad2BfDCf92C0F6E2C2CAbF83874660Fc",
         //   DGXToken.abi,
@@ -202,11 +172,7 @@ const Home: NextPage = () => {
         //   amount * 10 ** 9
         // );
         const DGXSwapContract = new ethers.Contract(
-<<<<<<< HEAD
-          "0xde2Bd2ffEA002b8E84ADeA96e5976aF664115E2c",
-=======
           "0x718696eaD0867B5849CDc00932b56Eef9c8c946B",
->>>>>>> main
           DgxSwap.abi,
           signer
         );
@@ -250,10 +216,6 @@ const Home: NextPage = () => {
           }}
         >
           <SwapForm
-<<<<<<< HEAD
-            approve={approveTokenHandler}
-=======
->>>>>>> main
             approved={approved}
             swapTokens={swapTokenHandler}
             approve={approveTokenHandler}

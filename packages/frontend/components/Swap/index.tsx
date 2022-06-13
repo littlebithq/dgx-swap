@@ -6,28 +6,13 @@ import ethLogo from "../../assets/dgx-coin.svg";
 interface Props {
   CGTBalance: string;
   DGXBalance: string;
-<<<<<<< HEAD
-  checkbal: () => void;
-  approved: boolean;
-=======
   approved: boolean;
   loading: boolean;
->>>>>>> main
   approve: (amount: any) => void;
   swapTokens: (amount: any) => void;
 }
 
-<<<<<<< HEAD
-const SwapForm = ({
-  CGTBalance,
-  DGXBalance,
-  swapTokens,
-  approve,
-  approved,
-}: Props) => {
-=======
 const SwapForm = ({ CGTBalance, DGXBalance, swapTokens, approved, approve, loading }: Props) => {
->>>>>>> main
   const { register, handleSubmit, watch, getValues } = useForm();
   return (
     <div className="bg-[#191b1f] p-8 rounded-[10px] shadow-xl">
