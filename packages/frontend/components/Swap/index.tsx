@@ -88,7 +88,6 @@ const SwapForm = ({ CGTBalance, DGXBalance, currentAccount }: Props) => {
         DGXContract.approve(
           SwapContractAddress,
          amount * 10 ** 9,
-            { gasLimit: 50000 }
         ).then((transactionResponse: TransactionResponse) => {
           setSnackbar({
             isOpen: true,
